@@ -714,7 +714,6 @@ def plotEventsNRMSD(averaged, img_bench_folder):
     }
 
     for si, gr_strategy in averaged.items():
-        # print(gr)
         for gr, strateg in gr_strategy.items():
             if si not in plots.keys():
                 plots[si] = {}
@@ -742,37 +741,15 @@ def plotEventsNRMSD(averaged, img_bench_folder):
                 minNRMSD = mi
             cmsx = np.array(plots[si][strat]['num_events'])
             cmsy = np.array(plots[si][strat]['NRMSD'])
-            # print(plots[si][strat]['num_events'])
-            # print(plots[si][strat]['NRMSD'])
             plt.plot(cmsx, cmsy, marker=marker[strat], markersize=7)
-            # if strat != 'morris':
-            #    si = si
             siz = (siz + [int(si)])
-            # else:
-            #     i = 0
-            #     add = 0.1
-            #     for s in plots[si][strat]['size']:
-            #         # print((int(s), plots[gr][strat]['NRMSD'][i]))
-            #         # print((int(s), float(plots[gr][strat]['NRMSD'][i]) + add * (i + 1.4)))
-            #         # print()
-            #         y = float(plots[si][strat]['NRMSD'][i]) + add * (i - 1.4)
-            #         if y < 0.03:
-            #             y = 0.03
-            #         plt.annotate(str(plots[si][strat]['num_events'][i]),
-            #                      xy=(int(s), plots[si][strat]['NRMSD'][i]),
-            #                      xytext=(int(s), y),
-            #                      arrowprops=dict(facecolor='black', shrink=1, width=0.1, headwidth=5, headlength=5)
-            #                      )
-            #         i = i + 1
 
         limy = maxNRMSD * 1.2
         if limy > 1:
             limy = 1
         size_str = int(sum(siz) / len(siz))
-        # num_events = int(round(sum(num_events) / len(num_events), 0))
         plt.plot([(size_str / 64), (size_str / 64)], [0, limy * 0.7], marker='.')
-        #
-        # print(siz)
+
         plt.suptitle(f"Number of Events VS NRMSD for {size_str} Bits")
         plt.xlabel("Number of Events")
         plt.ylabel("NRMSD")
@@ -796,11 +773,13 @@ def plotEventsNRMSD(averaged, img_bench_folder):
             plt.show()
     return
 
+
 def printHelp():
     print("Usage --- python3 main.py {command} {directory} {plotType for plot command}")
     print("command = {'compare', 'filter', 'plot'}")
     print("directory = Directory filled with gem5 stats")
     print("plotType = {'events', 'size'}")
+
 
 if __name__ == '__main__':
     print("Analysing Stats")
